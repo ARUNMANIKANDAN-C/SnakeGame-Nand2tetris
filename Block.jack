@@ -1,0 +1,384 @@
+class Block {
+  field int xCoord, yCoord;
+  static int blockW, margin;
+
+  constructor Block new(int x, int y) {
+    let xCoord = x;
+    let yCoord = y;
+    return this;
+  }
+
+  method int getCoord(boolean x) {
+    var int retCoord;
+    if (x) {
+      let retCoord = xCoord;
+    } else {
+      let retCoord = yCoord;
+    }
+    return retCoord;
+  }
+  function Block newRandBlock(Snake snake, int l, Maze maze ,int l2 ) {
+    var int randX, randY, i, blockX, blockY;
+    var Block randBlock, tmpBlock;
+    var boolean matched;
+    let randX = Rand.randRange(50);
+    let randY = Rand.randRange(24);
+    let i = 0;
+    let matched = false;
+    while (i < l) {
+      let tmpBlock = snake[i];
+      let blockX = tmpBlock.getCoord(true); 
+      let blockY = tmpBlock.getCoord(false);
+      if ((blockX = randX) & (blockY = randY)) {
+        let matched = true;
+      }
+      let i = i + 1; 
+    }
+    let i = 0;
+    while (i < l2) {
+      let tmpBlock = maze[i];
+      let blockX = tmpBlock.getCoord(true); 
+      let blockY = tmpBlock.getCoord(false);
+      if ((blockX = randX) & (blockY = randY)) {
+          let matched = true;
+      }
+      let i = i + 1;
+       }
+    while (matched) {
+      let matched = false;
+      let randX = Rand.randRange(50);
+      let randY = Rand.randRange(24);
+      let i = 0;
+      while (i < l) {
+        let tmpBlock = snake[i];
+        let blockX = tmpBlock.getCoord(true); 
+        let blockY = tmpBlock.getCoord(false);
+        if ((blockX = randX) & (blockY = randY)) {
+          let matched = true;
+        }
+        let i = i + 1; 
+      }
+      
+      let i = 0;
+    while (i < l2) {
+      let tmpBlock = maze[i];
+      let blockX = tmpBlock.getCoord(true); 
+      let blockY = tmpBlock.getCoord(false);
+      if ((blockX = randX) & (blockY = randY)) {
+          let matched = true;
+      }
+      let i = i + 1;
+       }
+    }
+    let randBlock = Block.new(randX, randY);
+    do Block.drawRandBlock(randBlock);
+    // do Block.printBlockCoord(randBlock);
+    return randBlock;
+  }
+
+
+  function boolean matched(Block head, Block target, int dir) {
+    var int headX, headY, targetX, targetY;
+    var boolean matched;
+    let matched = false;
+    let headX = head.getCoord(true);
+    let headY = head.getCoord(false);
+    if (dir = 1){let headX = headX + 1;}
+    if (dir = 2){let headX = headX - 1;}
+    if (dir = 3){let headY = headY - 1;}
+    if (dir = 4){let headY = headY + 1;}
+    let targetX = target.getCoord(true);
+    let targetY = target.getCoord(false);
+    if ((headX = targetX) & (headY = targetY)) {
+      let matched = true; 
+    }
+    return matched;
+  } 
+ function void drawFullBlock(Block block, boolean color) {
+    var int x1, y1, x2, y2, x, y;
+    var int xIndx, yIndx;
+    let xIndx = block.getCoord(true);
+    let yIndx = block.getCoord(false);
+    let x1 = xIndx * blockW + margin;
+    let x2 = xIndx * blockW + blockW - margin;
+    let y1 = yIndx * blockW + margin;
+    let y2 = yIndx * blockW + blockW - margin;
+
+    let x = Math.divide((x1+x2),2); 
+    let y = Math.divide((y1+y2),2);
+
+    if (color) {
+      do Screen.setColor(true);
+    } else {
+      do Screen.setColor(false);
+    }
+    do Screen.drawCircle(x, y, 5);
+    return;
+  }
+function void drawHFullBlock(Block block, boolean color, int dir) {
+    var int newXCoord, newYCoord;
+    let newXCoord = block.getCoord(true);
+    let newYCoord = block.getCoord(false);
+    let newXCoord = newXCoord * blockW + margin;
+    let newYCoord = newYCoord * blockW + blockW - margin;
+if (dir = 1) {
+    do Screen.setColor(color);
+    do Screen.drawLine(newXCoord, newYCoord + 1, newXCoord, newYCoord + 8);
+    do Screen.drawRectangle(newXCoord + 1, newYCoord, newXCoord + 8, newYCoord + 8);
+    do Screen.drawLine(newXCoord, newYCoord + 1, newXCoord, newYCoord + 8);
+    do Screen.setColor(false);
+    do Screen.drawPixel(newXCoord + 2, newYCoord + 9);
+    do Screen.drawPixel(newXCoord + 7, newYCoord + 9);
+
+    }
+    if (dir = 2) {
+    do Screen.setColor(color);
+    do Screen.drawLine(newXCoord, newYCoord + 2, newXCoord, newYCoord + 8);
+    do Screen.drawRectangle(newXCoord + 1, newYCoord + 1, newXCoord + 8, newYCoord + 8);
+    do Screen.drawLine(newXCoord + 9, newYCoord + 1, newXCoord + 9, newYCoord + 8);
+    do Screen.setColor(false);
+    do Screen.drawPixel(newXCoord, newYCoord + 2);
+    do Screen.drawPixel(newXCoord,newYCoord + 7);
+
+    }
+    if (dir = 3) {
+    do Screen.setColor(color);
+    do Screen.drawLine(newXCoord,newYCoord + 1, newXCoord,newYCoord + 8);
+    do Screen.drawRectangle(newXCoord + 1, newYCoord, newXCoord + 8, newYCoord + 9);
+    do Screen.setColor(false);
+    do Screen.drawPixel(newXCoord + 9, newYCoord + 2);
+    do Screen.drawPixel(newXCoord + 9, newYCoord + 7);
+
+    }
+    if (dir = 4) {
+    do Screen.setColor(color);
+    do Screen.drawLine(newXCoord + 9, newYCoord + 1, newXCoord + 9, newYCoord + 8);
+    do Screen.drawRectangle(newXCoord + 1, newYCoord, newXCoord + 8, newYCoord + 9);
+    do Screen.setColor(false);
+    do Screen.drawPixel(newXCoord, newYCoord + 2);
+    do Screen.drawPixel(newXCoord, newYCoord + 7);
+
+    }
+    return;
+}
+  function Block moveHeadBlock(Block headBlock, int dir) {
+    var int newXCoord, newYCoord;
+    var BLock newHeadBlock;
+    let newXCoord = headBlock.getCoord(true);
+    let newYCoord = headBlock.getCoord(false);
+    if (dir = 1) {let newXCoord = newXCoord + 1;}
+    if (dir = 2) {let newXCoord = newXCoord - 1;}
+    if (dir = 3) {let newYCoord = newYCoord - 1;}
+    if (dir = 4) {let newYCoord = newYCoord + 1;}
+    let newHeadBlock = Block.new(newXCoord, newYCoord);
+    do Block.drawFullBlock(newHeadBlock, true);
+    //do Block.drawHFullBlock(newHeadBlock, true, dir);
+    return newHeadBlock; 
+  }
+ 
+  function boolean seeIfLose(int l, Snake snake, int dir, Maze maze, int l2) {
+    var boolean bumpWall, bumpBody, lose;
+    var int headX, headY, i, newL, tmpX, tmpY;
+    var Block head, tmpBlock;
+    let bumpWall = false;
+    let bumpBody = false;
+    let lose = false;
+    let newL = l - 1;
+    let head = snake[newL];
+    let headX = head.getCoord(true);
+    let headY = head.getCoord(false);
+    if (dir = 1){let headX = headX + 1;}
+    if (dir = 2){let headX = headX - 1;}
+    if (dir = 3){let headY = headY - 1;}
+    if (dir = 4){let headY = headY + 1;}
+    if ((headX < 0) | (headX > 50) | (headY > 24) | (headY < 0)) {
+      let bumpWall = true; 
+    }
+    let i = 1;
+    while (i < newL) {
+      let tmpBlock = snake[i];
+      let tmpX = tmpBlock.getCoord(true);
+      let tmpY = tmpBlock.getCoord(false);
+      if ((headX = tmpX) & (headY = tmpY)) {
+        let bumpBody = true;
+      }
+      let i = i + 1;
+    }
+
+    let i = 1;
+    let newL = l2;
+    while (i < newL) {
+      let tmpBlock = maze[i];
+      let tmpX = tmpBlock.getCoord(true);
+      let tmpY = tmpBlock.getCoord(false);
+      if ((headX = tmpX) & (headY = tmpY)) {
+        let bumpBody = true;
+      }
+      let i = i + 1;
+    }
+
+    if ((bumpWall) | (bumpBody)) {
+      let lose = true;
+    }
+    return lose;
+  }
+ 
+  function void dispose(Block block) {
+    do Memory.deAlloc(block);
+    return;
+  }
+
+  function void setBlockInfo(int bw, int m) {
+    let blockW = bw;
+    let margin = m;
+    return;
+  }
+
+ function void pattern(int x1, int y1, int x2, int y2, int start) {
+    var int width;
+    var int height;
+    var int patch;
+    var int patchLine;
+    let width = Math.abs(x2 - x1);
+    let height = Math.abs(y2 - y1);
+    let patch =Math.divide( Math.abs(x2 - x1 - start) , 2);
+    let patchLine =Math.divide( Math.abs(y2 - y1) , 2);
+    let start=0;
+    do Screen.setColor(true);
+
+    while (patchLine >(start-1)) {
+        do Screen.drawLine(x1 + patch, y1 + start, x2 - patch, y1 + start);
+        do Screen.drawLine(x1 + patch, y2 - start, x2 - patch, y2 - start);
+        let start=start+1;
+
+        if (patch > 0) {
+            do Screen.drawLine(x1 + patch, y1 + start, x2 - patch, y1 + start);
+            do Screen.drawLine(x1 + patch, y2 - start, x2 - patch, y2 - start);
+            let patch= patch -1;
+        }
+    }
+    return;
+}
+
+  function void drawRandBlock(Block randBlock) {
+    var int innerX1, innerY1, innerX2, innerY2;
+    var int xIndx, yIndx;
+    let xIndx = randBlock.getCoord(true);
+    let yIndx = randBlock.getCoord(false);
+    let innerX1 = xIndx * blockW + margin ;
+    let innerY1 = yIndx * blockW + margin ;
+    let innerX2 = xIndx * blockW + blockW - margin ; 
+    let innerY2 = yIndx * blockW + blockW - margin ; 
+    do Block.pattern(innerX1, innerY1, innerX2, innerY2, 1) ;
+
+    //do Screen.setColor(true);
+    //do Screen.drawRectangle(innerX1, innerY1, innerX2, innerY2);z
+    //do Screen.setColor(false);
+    //do Screen.drawRectangle(innerX1+1, innerY1+1, innerX2-1, innerY2-1);
+    return;
+  }
+
+  function void drawMBlock(Block randBlock) {
+    var int innerX1, innerY1, innerX2, innerY2;
+    var int xIndx, yIndx;
+    let xIndx = randBlock.getCoord(true);
+    let yIndx = randBlock.getCoord(false);
+    let innerX1 = xIndx * blockW + margin ;
+    let innerY1 = yIndx * blockW + margin ;
+    let innerX2 = xIndx * blockW + blockW - margin ; 
+    let innerY2 = yIndx * blockW + blockW - margin ; 
+    do Screen.setColor(true);
+    do Screen.drawRectangle(innerX1, innerY1, innerX2, innerY2);
+    do Screen.setColor(false);
+    do Screen.drawRectangle(innerX1+1, innerY1+1, innerX2-1, innerY2-1);
+    do Screen.setColor(true);
+    do Screen.drawLine(innerX1 + 1, innerY1 + 1, innerX2 - 1, innerY2 - 1);
+    do Screen.drawLine(innerX2 - 1, innerY1 + 1, innerX1 + 1, innerY2 - 1);
+    return;
+  }
+
+
+  function void drawnegRandBlock(Block randBlock) {
+    var int innerX1, innerY1, innerX2, innerY2;
+    var int xIndx, yIndx;
+    let xIndx = randBlock.getCoord(true);
+    let yIndx = randBlock.getCoord(false);
+    let innerX1 = xIndx * blockW + margin ;
+    let innerY1 = yIndx * blockW + margin ;
+    let innerX2 = xIndx * blockW + blockW - margin ; 
+    let innerY2 = yIndx * blockW + blockW - margin ; 
+    do Screen.setColor(true);
+    do Screen.drawRectangle(innerX1, innerY1, innerX2, innerY2);
+    do Screen.setColor(false);
+    do Screen.drawRectangle((innerX1 + 2), (innerY1 + 2), (innerX2 -2),( innerY2-2));
+    do Block.pattern(innerX1+2, innerY1+2, innerX2-2, innerY2-2, 0);
+    return;
+  }
+
+  // debug
+  function void printBlockCoord(Block block) {
+    var String uParam, comma, lParam;
+    var int xIndx, yIndx;
+    let xIndx = block.getCoord(true);
+    let yIndx = block.getCoord(false);
+    let uParam = "(";
+    let comma = ",";
+    let lParam = ")";
+    do Output.printString(uParam);
+    do Output.printInt(xIndx);
+    do Output.printString(comma);
+    do Output.printInt(yIndx);
+    do Output.printString(lParam);
+    do Output.println();
+    do uParam.dispose();
+    do comma.dispose();
+    do lParam.dispose();
+    return;
+  }
+
+function Block negRandBlock(Snake snake, int l, Block fruit) {
+    var int randX, randY, i;
+    var Block randBlock, tmpBlock,blockX,blockY;
+    var boolean matched;
+    let i = 0;
+    let randX = Rand.randRange(50);
+    let randY = Rand.randRange(24);
+    let i = 0;
+    let matched = false;
+    //==================================================================================
+    while (i < l) {
+        let tmpBlock = snake[i];
+        let blockX = tmpBlock.getCoord(true); 
+        let blockY = tmpBlock.getCoord(false);
+        if ((blockX = randX) & (blockY = randY)) {
+            let matched = true;
+        }
+        let i=i+1;
+    
+    if ((fruit.getCoord(true) = randX) & (fruit.getCoord(false) = randY)) {
+        let matched = true;
+    }
+    }
+    //======================================================================================
+    while (matched) {
+        let randX = Rand.randRange(50);
+        let randY = Rand.randRange(24);
+        //+++++++++++++++++
+        while (i < l) {
+        let tmpBlock = snake[i];
+        let blockX = tmpBlock.getCoord(true); 
+        let blockY = tmpBlock.getCoord(false);
+        if ((blockX = randX) & (blockY = randY)) {
+            let matched = true;
+        }
+        let i=i+1;
+        }
+        //++++++++++++++=++
+    if ((fruit.getCoord(true) = randX) & (fruit.getCoord(false) = randY)) {
+        let matched = true;
+    }}
+    let randBlock = Block.new(randX, randY);
+    do Block.drawnegRandBlock(randBlock);
+    return randBlock;
+  }
+}

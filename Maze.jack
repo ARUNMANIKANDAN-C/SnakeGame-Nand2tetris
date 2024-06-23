@@ -1,0 +1,87 @@
+class Maze {
+    field Array blocks;
+    field int blockCount;
+    field int max;
+
+    constructor Maze new(int initialSize) {
+        let blocks = Array.new(initialSize);
+        let max = initialSize;
+        let blockCount = 0;
+        return this;
+    }
+
+    function Array make(Array snake, int snakeLength, Block food, Block negfood, int max) {
+        var int randX, randY, i, blockX, blockY,blockCount,max,newLength;
+        var Block randBlock, tmpBlock;
+        var boolean matched;
+        var Array newMaze;
+        let newLength = max;
+        let newMaze = Array.new(newLength);
+        let blockCount = 0;
+        // Loop to create maze blocks until a certain number is reached
+        while (blockCount < max) {
+            let randX = Rand.randRange(48);
+            let randY = Rand.randRange(22);
+            let matched = false;
+
+            // Check against the snake
+            let i = 0;
+            while (i < snakeLength) {
+                let tmpBlock = Snake.getBlock(snake, i);
+                let blockX = tmpBlock.getCoord(true); 
+                let blockY = tmpBlock.getCoord(false);
+                if ((blockX = randX) & (blockY = randY)) {
+                    let matched = true;
+                }
+                let i = i + 1;
+            }
+            
+            // Check against food
+            if ((food.getCoord(true) = randX) & (food.getCoord(false) = randY)) {
+                let matched = true;
+            }
+            
+            // Check against negfood
+            if ((negfood.getCoord(true) = randX) & (negfood.getCoord(false) = randY)) {
+                let matched = true;
+            }
+            
+            // Check against previous maze
+            let i = 0;
+            while (i < blockCount) {
+                let tmpBlock = newMaze[i];
+                let blockX = tmpBlock.getCoord(true); 
+                let blockY = tmpBlock.getCoord(false);
+                if ((blockX = randX) & (blockY = randY)) {
+                    let matched = true;
+                }
+                let i = i + 1;
+            }
+            
+            // If no match, add the block to the maze
+            if (~matched) {
+                let blockCount = blockCount + 1;
+                let randBlock = Block.new(randX, randY);
+                do Block.drawMBlock(randBlock);
+                let newMaze[i] = randBlock;
+                //let blockCount = blockCount + 1;
+            }
+        }
+        return newMaze;
+    }
+  function Block getBlock(Array maze, int indx) {
+    return maze[indx];
+  }
+
+  function void dispose(Array maze, int l) {
+    var int i;
+    let i = 0;
+    while (i < l) {
+      do Block.dispose(maze.getBlock(maze, i));
+      let i = i + 1;
+    }
+    do maze.dispose();
+    return;
+  }
+    
+}

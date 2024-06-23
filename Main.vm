@@ -1,0 +1,31 @@
+function Main.main 2
+call Image.Logo 0
+pop temp 0
+push constant 2000
+call Sys.wait 1
+pop temp 0
+push constant 5
+call View.init 1
+pop local 0
+push local 0
+call View.move 1
+pop local 1
+label WHILE_EXP0
+push local 1
+not
+if-goto WHILE_END0
+push constant 0
+pop local 1
+push local 0
+call View.dispose 1
+pop temp 0
+push constant 5
+call View.init 1
+pop local 0
+push local 0
+call View.move 1
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

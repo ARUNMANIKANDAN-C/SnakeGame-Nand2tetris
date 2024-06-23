@@ -1,0 +1,178 @@
+function Leveldraw.main 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 20
+push constant 20
+call Leveldraw.drawL 2
+pop temp 0
+push constant 50
+push constant 20
+call Leveldraw.drawE 2
+pop temp 0
+push constant 90
+push constant 20
+call Leveldraw.drawV 2
+pop temp 0
+push constant 130
+push constant 20
+call Leveldraw.drawE 2
+pop temp 0
+push constant 170
+push constant 20
+call Leveldraw.drawL 2
+pop temp 0
+push constant 210
+push constant 20
+call Leveldraw.draw1 2
+pop temp 0
+push constant 5000
+call Sys.wait 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+return
+function Leveldraw.main1 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 20
+push constant 20
+call Leveldraw.drawL 2
+pop temp 0
+push constant 50
+push constant 20
+call Leveldraw.drawE 2
+pop temp 0
+push constant 90
+push constant 20
+call Leveldraw.drawV 2
+pop temp 0
+push constant 130
+push constant 20
+call Leveldraw.drawE 2
+pop temp 0
+push constant 170
+push constant 20
+call Leveldraw.drawL 2
+pop temp 0
+push constant 210
+push constant 20
+call Leveldraw.draw1 2
+pop temp 0
+push constant 230
+push constant 20
+call Leveldraw.draw1 2
+pop temp 0
+push constant 5000
+call Sys.wait 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+return
+function Leveldraw.drawL 0
+push argument 0
+push argument 1
+push argument 0
+push argument 1
+push constant 30
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push argument 1
+push constant 30
+add
+push argument 0
+push constant 10
+add
+push argument 1
+push constant 30
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Leveldraw.drawE 0
+push argument 0
+push argument 1
+push argument 0
+push argument 1
+push constant 30
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push argument 1
+push argument 0
+push constant 10
+add
+push argument 1
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push argument 1
+push constant 15
+add
+push argument 0
+push constant 10
+add
+push argument 1
+push constant 15
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push argument 1
+push constant 30
+add
+push argument 0
+push constant 10
+add
+push argument 1
+push constant 30
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Leveldraw.drawV 0
+push argument 0
+push argument 1
+push argument 0
+push constant 5
+add
+push argument 1
+push constant 30
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 5
+add
+push argument 1
+push constant 30
+add
+push argument 0
+push constant 10
+add
+push argument 1
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Leveldraw.draw1 0
+push argument 0
+push constant 5
+add
+push argument 1
+push argument 0
+push constant 5
+add
+push argument 1
+push constant 30
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,215 @@
+function Snake.init 2
+push argument 0
+call Array.new 1
+pop local 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+push argument 0
+lt
+not
+if-goto WHILE_END0
+push local 1
+push local 0
+add
+push local 1
+push constant 0
+call Block.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 1
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 0
+not
+call Block.drawFullBlock 2
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+return
+function Snake.getBlock 0
+push argument 1
+push argument 0
+add
+pop pointer 1
+push that 0
+return
+function Snake.moveSnake 2
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop local 1
+push local 0
+push argument 0
+add
+pop pointer 1
+push that 0
+push constant 0
+call Block.drawFullBlock 2
+pop temp 0
+push local 0
+push argument 0
+add
+pop pointer 1
+push that 0
+call Block.dispose 1
+pop temp 0
+label WHILE_EXP0
+push local 0
+push local 1
+lt
+not
+if-goto WHILE_END0
+push local 0
+push argument 0
+add
+push local 0
+push constant 1
+add
+push argument 0
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push argument 1
+push constant 1
+sub
+push argument 0
+add
+push argument 1
+push constant 1
+sub
+push argument 0
+add
+pop pointer 1
+push that 0
+push argument 2
+call Block.moveHeadBlock 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Snake.lengthenSnake 3
+push argument 2
+push constant 0
+not
+call Block.drawFullBlock 2
+pop temp 0
+push argument 1
+push constant 1
+add
+pop local 0
+push local 0
+call Array.new 1
+pop local 2
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+push argument 1
+lt
+not
+if-goto WHILE_END0
+push local 1
+push local 2
+add
+push local 1
+push argument 0
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push argument 0
+call Array.dispose 1
+pop temp 0
+push local 1
+push local 2
+add
+push argument 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 2
+return
+function Snake.dispose 1
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 1
+lt
+not
+if-goto WHILE_END0
+push argument 0
+push local 0
+call Snake.getBlock 2
+call Block.dispose 1
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push argument 0
+call Array.dispose 1
+pop temp 0
+push constant 0
+return
+function Snake.printSnakeCoords 1
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 1
+lt
+not
+if-goto WHILE_END0
+push local 0
+push argument 0
+add
+pop pointer 1
+push that 0
+call Block.printBlockCoord 1
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

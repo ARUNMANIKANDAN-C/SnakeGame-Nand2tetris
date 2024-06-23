@@ -1,0 +1,20 @@
+class Main {
+  function void main() {
+    var View view;
+    //var Image image;
+    var boolean restart;
+    //let image = Image.init(5);
+    do Image.Logo();
+    do Sys.wait(2000);
+    let view = View.init(5);
+    let restart = view.move();
+    
+    while (restart) {
+      let restart = false;
+      do view.dispose();
+      let view = View.init(5);
+      let restart = view.move();
+    }
+    return;
+  }
+}

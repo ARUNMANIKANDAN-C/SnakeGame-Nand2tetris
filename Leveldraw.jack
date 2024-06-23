@@ -1,0 +1,55 @@
+// Main.jack
+class Leveldraw {
+    function void main() {
+        do Screen.clearScreen();
+        do Leveldraw.drawL(20, 20);
+        do Leveldraw.drawE(50, 20);
+        do Leveldraw.drawV(90, 20);
+        do Leveldraw.drawE(130, 20);
+        do Leveldraw.drawL(170, 20);
+        do Leveldraw.draw1(210, 20);
+        //do Leveldraw.draw1(210, 20);
+        do Sys.wait(5000); // Wait for 5 seconds before clearing the screen
+        do Screen.clearScreen();
+        return;
+    }
+    function void main1() {
+        do Screen.clearScreen();
+        do Leveldraw.drawL(20, 20);
+        do Leveldraw.drawE(50, 20);
+        do Leveldraw.drawV(90, 20);
+        do Leveldraw.drawE(130, 20);
+        do Leveldraw.drawL(170, 20);
+        do Leveldraw.draw1(210, 20);
+        do Leveldraw.draw1(230, 20);
+        do Sys.wait(5000); // Wait for 5 seconds before clearing the screen
+        do Screen.clearScreen();
+        return;
+    }
+
+
+    function void drawL(int x, int y) {
+        do Screen.drawLine(x, y, x, y + 30); // Vertical line
+        do Screen.drawLine(x, y + 30, x + 10, y + 30); // Horizontal line
+        return;
+    }
+
+    function void drawE(int x, int y) {
+        do Screen.drawLine(x, y, x, y + 30); // Vertical line
+        do Screen.drawLine(x, y, x + 10, y); // Top horizontal line
+        do Screen.drawLine(x, y + 15, x + 10, y + 15); // Middle horizontal line
+        do Screen.drawLine(x, y + 30, x + 10, y + 30); // Bottom horizontal line
+        return;
+    }
+
+    function void drawV(int x, int y) {
+        do Screen.drawLine(x, y, x + 5, y + 30); // Left diagonal line
+        do Screen.drawLine(x + 5, y + 30, x + 10, y); // Right diagonal line
+        return;
+    }
+
+    function void draw1(int x, int y) {
+        do Screen.drawLine(x + 5, y, x + 5, y + 30); // Vertical line
+        return;
+    }
+}
